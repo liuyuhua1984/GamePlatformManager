@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.3.xsd
+            http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!--  读取配置要放到beans.xml里面去,而且只能读一次
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file:${user.dir}/jdbc.properties</value>
+				<value>file:${user.dir}/redis.properties</value> 
+			</list>
+		</property>
+	</bean>
+-->
+	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+
+		<!-- 基本属性 url、user、password -->
+		 <property name="driverClassName" value="${druid.driverClassName}" />
+		<property name="url" value="${druid.url}" />
+		<property name="username" value="${druid.username}" />
+		<property name="password" value="${druid.password}" />
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${druid.initialSize}" />
+		<property name="minIdle" value="${druid.minIdle}" />
+		<property name="maxActive" value="${druid.maxActive}" />
+
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="${druid.maxWait}" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+
+		<property name="validationQuery" value="${druid.validationQuery}" />
+		<property name="testWhileIdle" value="${druid.testWhileIdle}" />
+		<property name="testOnBorrow" value="${druid.testOnBorrow}" />
+		<property name="testOnReturn" value="${druid.testOnReturn}" />
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="${druid.maxPoolPreparedStatementPerConnectionSize}" />
+
+		<!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+		<property name="filters" value="${druid.filters}" />
+
+	</bean>
+
+	<!--Log <bean id="dataSourceLog" destroy-method="close" class="com.mchange.v2.c3p0.ComboPooledDataSource"> 
+		<property name="driverClass" value="${jdbclog.driverClassName}" /> <property 
+		name="jdbcUrl" value="${jdbclog.url}" /> <property name="user" value="${jdbclog.username}" 
+		/> <property name="password" value="${jdbclog.password}" /> <property name="initialPoolSize" 
+		value="${jdbclog.initialPoolSize}" /> <property name="minPoolSize" value="${jdbclog.minPoolSize}" 
+		/> <property name="maxPoolSize" value="${jdbclog.maxPoolSize}" /> <property 
+		name="maxIdleTime" value="${jdbclog.maxIdleTime}" /> <property name="acquireIncrement" 
+		value="${jdbclog.acquireIncrement}" /> </bean> -->
+	<!-- class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> -->
+	<!-- class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" -->
+	<bean id="sf"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+		<property name="dataSource" ref="dataSource" />
+		<!-- <property name="annotatedClasses"> <list> <value>com.bjsxt.model.User</value> 
+			<value>com.bjsxt.model.Log</value> </list> </property> -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.engine.domain</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQL5Dialect
+				</prop>
+				<!-- <prop key="hibernate.current_session_context_class">thread</prop> 
+					prop key="hibernate.show_sql">true</prop> -->
+				<prop key="hibernate.current_session_context_class">
+					org.springframework.orm.hibernate5.SpringSessionContext
+				</prop>
+				<prop key="hibernate.format_sql">true</prop>
+
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+				<!-- <prop key="javax.persistence.validation.mode">none</prop> -->
+			</props>
+		</property>
+	</bean>
+
+	<!-- <bean id="sfLog" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSourceLog" /> <property name="packagesToScan"> 
+		<list> <value>com.sj.game.log.domain</value> </list> </property> <property 
+		name="hibernateProperties"> <props> <prop key="hibernate.dialect"> org.hibernate.dialect.MySQLDialect 
+		</prop> <prop key="hibernate.current_session_context_class">thread</prop> 
+		<prop key="hibernate.hbm2ddl.auto">update</prop> </props> </property> </bean> 
+		<bean id="logDAO" class="com.engine.dbdao.LogDAO"> <property name="sessionFactory" 
+		ref="sf"></property> </bean> -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sf" />
+	</bean>
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sf"></property>
+	</bean>
+	<!-- <bean id="txManagerLog" class="org.springframework.orm.hibernate3.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sfLog" /> </bean> -->
+	<!-- proxy-target-class=true基于CGLIB代理 -->
+	<!-- <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />-->
+		<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true" />
+	<!-- <tx:annotation-driven transaction-manager="txManagerLog"/> -->
+
+	 <!-- 配置druid监控spring jdbc -->
+
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+    </bean>
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.lyh.game.service.*</value>
+            </list>
+        </property>
+    </bean>
+    <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
+    </aop:config>
+</beans>

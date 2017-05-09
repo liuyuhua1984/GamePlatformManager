@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.3.xsd
+            http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!-- 导入资源文件 -->
+	<context:annotation-config />
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- <value>file:${user.dir}/jdbc.properties</value> <value>file:${user.dir}/jdbclog.properties</value> -->
+				<value>/config/redis.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 使用spring-session把http session放到redis里 -->
+	<bean id="redisHttpSessionConfiguration"
+		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+		<!-- 过期时间秒 -->
+		<property name="maxInactiveIntervalInSeconds" value="${session.maxInactiveIntervalInSeconds}" />
+	</bean>
+
+	<!-- redis -->
+	<bean id="redisConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="${redis.maxActive}" />
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxWaitMillis" value="${redis.maxWaitTime}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+	<!-- 使用spring-session把http session放到redis里 <bean id="redisHttpSessionConfiguration" 
+		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"> -->
+	<!-- 过期时间秒 <property name="maxInactiveIntervalInSeconds" value="${session.maxInactiveIntervalInSeconds}" 
+		/> </bean> -->
+	<!-- connectionFactory org.springframework.data.redis.connection.jedis.JedisConnectionFactory -->
+	<bean id="connectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		destroy-method="destroy">
+		<property name="hostName" value="${redis.url}" />
+		<property name="port" value="${redis.port}" />
+		<property name="password" value="${redis.password}" />
+		<property name="poolConfig" ref="redisConfig" />
+		<property name="usePool" value="${redis.usepool}" />
+		<property name="database" value="${redis.sesssion.db}" />
+	</bean>
+
+</beans>
