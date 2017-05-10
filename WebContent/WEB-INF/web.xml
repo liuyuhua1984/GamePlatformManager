@@ -41,10 +41,12 @@
 			<param-value>/config/spring-mvc.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+				<async-supported>true</async-supported>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>springDispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
+		
 	</servlet-mapping>
 
 	<!-- session 共享 在web.xml中加入以下过滤器，注意如果web.xml中有其他过滤器，一般情况下Spring Session的过滤器要放在第一位。 -->
@@ -55,8 +57,10 @@
 	<filter-mapping>
 		<filter-name>springSessionRepositoryFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<!--  
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>ERROR</dispatcher>
+		-->
 	</filter-mapping>
 
 	<filter>

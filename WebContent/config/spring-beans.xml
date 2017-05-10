@@ -25,9 +25,10 @@
 			</list>
 		</property>
 	</bean>
-	<import resource="classpath*:spring_mongo.xml" />
+
 	<import resource="classpath*:spring_redis_single.xml" />
+	<!--  <import resource="classpath*:spring-session.xml"/>-->
 	<import resource="classpath*:spring_mybatis.xml" />
-	
+	<import resource="classpath*:spring_mongo.xml" />
 	
 </beans>

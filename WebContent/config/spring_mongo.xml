@@ -10,6 +10,7 @@ http://www.springframework.org/schema/data/mongo
 http://www.springframework.org/schema/data/mongo/spring-mongo-1.8.xsd 
 http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
 	<!-- 加载mongodb的属性配置文件 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
 		<property name="locations"> <list> <value>file:${user.dir}/mongo.properties</value> 
 		</list> </property> </bean> -->
