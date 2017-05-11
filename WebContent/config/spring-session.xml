@@ -30,7 +30,7 @@
 		class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
 		<!-- 过期时间秒 -->
 		<property name="maxInactiveIntervalInSeconds"  value="${session.maxInactiveIntervalInSeconds}" />
-		<property name="redisNamespace"  value="platform.session" />
+		<property name="redisNamespace"  value="platform" />
 	</bean>
 
 	<!-- redis -->

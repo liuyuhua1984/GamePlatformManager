@@ -4,10 +4,14 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	<display-name>GamePlatformManager</display-name>
-	<!-- <welcome-file-list> <welcome-file>index.html</welcome-file> <welcome-file>index.htm</welcome-file> 
-		<welcome-file>index.jsp</welcome-file> <welcome-file>default.html</welcome-file> 
-		<welcome-file>default.htm</welcome-file> <welcome-file>default.jsp</welcome-file> 
-		</welcome-file-list> -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
 	<context-param>
 		<param-name>webAppRootKey</param-name>
 		<param-value>webName.root</param-value>
@@ -20,16 +24,16 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/config/spring-*.xml</param-value>
 	</context-param>
-
+	<listener>
+		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+	</listener>
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
-	<listener>
-		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
-	</listener>
+
 	<listener>
 		<listener-class>com.lyh.game.servlet.ServerContextListener</listener-class>
 	</listener>
@@ -41,12 +45,11 @@
 			<param-value>/config/spring-mvc.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-				<async-supported>true</async-supported>
+		<async-supported>true</async-supported>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>springDispatcherServlet</servlet-name>
 		<url-pattern>/</url-pattern>
-		
 	</servlet-mapping>
 
 	<!-- session 共享 在web.xml中加入以下过滤器，注意如果web.xml中有其他过滤器，一般情况下Spring Session的过滤器要放在第一位。 -->
@@ -57,10 +60,7 @@
 	<filter-mapping>
 		<filter-name>springSessionRepositoryFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-		<!--  
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>ERROR</dispatcher>
-		-->
+		<!-- <dispatcher>REQUEST</dispatcher> <dispatcher>ERROR</dispatcher> -->
 	</filter-mapping>
 
 	<filter>
