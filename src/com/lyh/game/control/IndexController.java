@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @see       
  */
 @Controller
-public class IndexController {
+public class IndexController extends BaseController{
 	
 	/** 
 	 * index:(). <br/> 

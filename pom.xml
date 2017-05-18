@@ -5,10 +5,11 @@
 	<artifactId>GamePlatformManager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Platform</name>
+	<name>GamePlatformManager</name>
 	<description>游戏管理平台</description>
 	<!-- 项目属性 -->
 	<properties>
+		<webVersion>3.1</webVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- main version setting -->
 		<spring.version>4.3.8.RELEASE</spring.version>
@@ -484,7 +485,7 @@
 		</dependency>
 		<!-- jstl -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
+			<groupId>javax.servlet.jsp.jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
@@ -659,9 +660,14 @@
 			<version>${springfox-swagger.version}</version>
 		</dependency>
 		<!-- 加载本地包 -->
-		<!-- <dependency> <groupId>com.read</groupId> <artifactId>com.read</artifactId> 
-			<version>excel-read</version> <scope>system</scope> <systemPath> ${basedir}/WebContent/WEB-INF/lib/excel-read.jar 
-			</systemPath> </dependency> -->
+		<dependency>
+			<groupId>com.read</groupId>
+			<artifactId>com.read</artifactId>
+			<version>excel-read</version>
+			<scope>system</scope>
+			<systemPath> ${basedir}/WebContent/WEB-INF/lib/game-lib.jar 
+			</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
