@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyh.game.mybaits.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="channelId" jdbcType="INTEGER" property="channelId" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="passport" jdbcType="VARCHAR" property="passport" />
+    <result column="phone" jdbcType="BIGINT" property="phone" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userName, password, channelId, createTime, lastLoginTime, status, passport, phone, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lyh.game.mybaits.domain.User">
+    insert into user (id, userName, password, 
+      channelId, createTime, lastLoginTime, 
+      status, passport, phone, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{channelId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{passport,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyh.game.mybaits.domain.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        userName,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="channelId != null">
+        channelId,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="lastLoginTime != null">
+        lastLoginTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="passport != null">
+        passport,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="passport != null">
+        #{passport,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyh.game.mybaits.domain.User">
+    update user
+    <set>
+      <if test="userName != null">
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        channelId = #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="passport != null">
+        passport = #{passport,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyh.game.mybaits.domain.User">
+    update user
+    set userName = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      channelId = #{channelId,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      passport = #{passport,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=BIGINT},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="channelId" jdbcType="INTEGER" property="channelId" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="passport" jdbcType="VARCHAR" property="passport" />
+    <result column="phone" jdbcType="BIGINT" property="phone" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userName, password, channelId, createTime, lastLoginTime, status, passport, phone, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lyh.game.mybaits.domain.User">
+    insert into user (id, userName, password, 
+      channelId, createTime, lastLoginTime, 
+      status, passport, phone, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{channelId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{passport,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyh.game.mybaits.domain.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        userName,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="channelId != null">
+        channelId,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="lastLoginTime != null">
+        lastLoginTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="passport != null">
+        passport,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="passport != null">
+        #{passport,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyh.game.mybaits.domain.User">
+    update user
+    <set>
+      <if test="userName != null">
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        channelId = #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="passport != null">
+        passport = #{passport,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} AND version=#{version}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyh.game.mybaits.domain.User">
+    update user
+    set userName = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      channelId = #{channelId,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      passport = #{passport,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=BIGINT},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="userName" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="channelId" jdbcType="INTEGER" property="channelId" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="passport" jdbcType="VARCHAR" property="passport" />
+    <result column="phone" jdbcType="BIGINT" property="phone" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userName, password, channelId, createTime, lastLoginTime, status, passport, phone, 
+    version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lyh.game.mybaits.domain.User">
+    insert into user (id, userName, password, 
+      channelId, createTime, lastLoginTime, 
+      status, passport, phone, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{channelId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=TINYINT}, #{passport,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyh.game.mybaits.domain.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        userName,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="channelId != null">
+        channelId,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="lastLoginTime != null">
+        lastLoginTime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="passport != null">
+        passport,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="passport != null">
+        #{passport,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyh.game.mybaits.domain.User">
+    update user
+    <set>
+      <if test="userName != null">
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="channelId != null">
+        channelId = #{channelId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginTime != null">
+        lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="passport != null">
+        passport = #{passport,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyh.game.mybaits.domain.User">
+    update user
+    set userName = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      channelId = #{channelId,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      lastLoginTime = #{lastLoginTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=TINYINT},
+      passport = #{passport,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=BIGINT},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

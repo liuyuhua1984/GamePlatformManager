@@ -42,29 +42,5 @@ public class ImageVerifyController extends BaseController {
 		return "";
 	}
 	
-	// 验证码验证
-	@RequestMapping(value = "/checkimagecode")
-	@ResponseBody
-	public String checkTcode(HttpServletRequest request, HttpServletResponse response) {
-		String validateCode = request.getParameter("validateCode");
-		String code = null;
-		// 1:获取cookie里面的验证码信息
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-			if ("imagecode".equals(cookie.getName())) {
-				code = cookie.getValue();
-				break;
-			}
-		}
-		// 1:获取session验证码的信息
-		// String code1 = (String) request.getSession().getAttribute("");
-		// 2:判断验证码是否正确
-		if (!StringUtils.isEmpty(validateCode) && validateCode.equals(code)) {
-			return "ok";
-			
-		}
-		return "error";
-		// 这里我没有进行字母大小模糊的验证处理，感兴趣的你可以去试一下！
-	}
 	
 }

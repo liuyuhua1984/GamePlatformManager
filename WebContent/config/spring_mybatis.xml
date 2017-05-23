@@ -72,7 +72,18 @@
          -->
         <property name="configLocation" value="/mybatis-config.xml"></property>
         <property name="mapperLocations" value="classpath:com/lyh/game/mapper/sqlmap/*.xml" />
-        
+         <property name="plugins">
+    	<array>
+     	 <!-- 主要看这里 -->
+       <bean class="com.github.pagehelper.PageHelper">
+        <property name="properties">
+          <value>
+            dialect=mysql
+          </value>
+        </property>
+      </bean>
+    </array>
+  </property>
     </bean>
     <!-- 配置扫描器 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
