@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyh.game.mybaits.mapper.AgentMapper">
+  <resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.Agent">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="roomCards" jdbcType="INTEGER" property="roomCards" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="inviterName" jdbcType="VARCHAR" property="inviterName" />
+    <result column="inviteCode" jdbcType="VARCHAR" property="inviteCode" />
+    <result column="openName" jdbcType="VARCHAR" property="openName" />
+    <result column="phone" jdbcType="BIGINT" property="phone" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lyh.game.mybaits.domain.Agent">
+    <result column="subordinateAgentId" jdbcType="LONGVARCHAR" property="subordinateAgentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, roomCards, createTime, inviterName, inviteCode, openName, phone
+  </sql>
+  <sql id="Blob_Column_List">
+    subordinateAgentId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from agent
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from agent
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lyh.game.mybaits.domain.Agent">
+    insert into agent (id, type, roomCards, 
+      createTime, inviterName, inviteCode, 
+      openName, phone, subordinateAgentId
+      )
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=INTEGER}, #{roomCards,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{inviterName,jdbcType=VARCHAR}, #{inviteCode,jdbcType=VARCHAR}, 
+      #{openName,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}, #{subordinateAgentId,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyh.game.mybaits.domain.Agent">
+    insert into agent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="roomCards != null">
+        roomCards,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="inviterName != null">
+        inviterName,
+      </if>
+      <if test="inviteCode != null">
+        inviteCode,
+      </if>
+      <if test="openName != null">
+        openName,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="subordinateAgentId != null">
+        subordinateAgentId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="roomCards != null">
+        #{roomCards,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inviterName != null">
+        #{inviterName,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteCode != null">
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="openName != null">
+        #{openName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=BIGINT},
+      </if>
+      <if test="subordinateAgentId != null">
+        #{subordinateAgentId,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -3,7 +3,7 @@ package com.lyh.game.entity;
 
 import java.io.Serializable;
 
-import com.lyh.game.mybaits.domain.User;
+import com.lyh.game.mybatis.domain.User;
 
 /** 
  * ClassName:UserEntity <br/> 

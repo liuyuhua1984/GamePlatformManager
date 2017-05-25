@@ -4,46 +4,41 @@ package com.lyh.game.service;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.jdbc.SQL;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.druid.pool.DruidDataSource;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.lyh.game.entity.PageEntity;
 import com.lyh.game.iservice.IBaseService;
 import com.lyh.game.iservice.IPageHelper;
-import com.lyh.game.mybatis.domain.User;
-import com.lyh.game.mybatis.mapper.UserMapper;
+import com.lyh.game.mybatis.domain.SellCards;
+import com.lyh.game.mybatis.mapper.SellCardsMapper;
 import com.lyh.game.utils.log.LogUtils;
 
 /**
- * ClassName:UserService <br/>
+ * SellCardsService <br/>
  * Function: TODO (). <br/>
  * Reason: TODO (). <br/>
  * Date: 2017年5月23日 下午2:46:21 <br/>
- * 
+ * 销售记录
  * @author lyh
  * @version
  * @see
  */
 @Service
-public class UserService implements IBaseService<User>, IPageHelper<User> {
+public class SellCardsService implements IBaseService<SellCards>, IPageHelper<SellCards> {
 	
 	protected Logger logger = LogUtils.getLog(this.getClass());
 	
 	@Autowired
-	private UserMapper mapper;
+	private SellCardsMapper mapper;
 	
-	public long insert(User t) {
+	public long insert(SellCards t) {
 		
 		if (t == null) {
-			logger.error("User is null");
+			logger.error("SellCards is null");
 			return 0;
 		}
 		
@@ -51,7 +46,7 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 		try {
 			result = mapper.insert(t);
 		} catch (Exception e) {
-			logger.error("插入单个玩家异常::", e);
+			logger.error("插入单个SellCards异常::", e);
 		}
 		
 		if (t != null && t.getId() != null && result > 0)
@@ -60,10 +55,10 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 		return result;
 	}
 	
-	public long insert(List<User> list) {
+	public long insert(List<SellCards> list) {
 		
 		if (list == null || list.size() <= 0) {
-			logger.error("insertList<User>为空或者size为0");
+			logger.error("insertList<SellCards>为空或者size为0");
 			return 0;
 		}
 		long result = 0;
@@ -71,14 +66,14 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 			result = mapper.insert(list);
 		} catch (Exception e) {
 			// e.printStackTrace();
-			logger.error("插入多个玩家异常::", e);
+			logger.error("插入多个SellCards异常::", e);
 		}
 		return result;
 	}
 	
-	public long update(User t) {
+	public long update(SellCards t) {
 		if (t == null) {
-			logger.error("更新玩家为空");
+			logger.error("更新SellCards为空");
 			return 0;
 		}
 		long result = 0;
@@ -86,16 +81,16 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 			result = mapper.update(t);
 		} catch (Exception e) {
 			// e.printStackTrace();
-			logger.error("更新玩家异常::", e);
+			logger.error("更新SellCards异常::", e);
 		}
 		
 		return result;
 	}
 	
-	public long update(List<User> list) {
+	public long update(List<SellCards> list) {
 		
 		if (list == null || list.size() <= 0) {
-			logger.error("更新多个玩家为空::");
+			logger.error("更新多个SellCards为空::");
 			return 0;
 		}
 		
@@ -111,12 +106,12 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 		return result;
 	}
 	
-	public User getById(long id) {
+	public SellCards getById(long id) {
 		try {
 			return mapper.getById(id);
 		} catch (Exception e) {
 			// e.printStackTrace();
-			logger.error("查找玩家异常::" + id, e);
+			logger.error("查找SellCards异常::" + id, e);
 		}
 		return null;
 	}
@@ -126,7 +121,7 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 			return mapper.deleteById(id);
 		} catch (Exception e) {
 			// e.printStackTrace();
-			logger.error("删除玩家异常::" + id, e);
+			logger.error("删除SellCards异常::" + id, e);
 		}
 		return 0;
 	}
@@ -172,45 +167,45 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 	// }
 	
 	@Override
-	public PageEntity<User> listByPage(Map<String, Object> paramMap, int startPage, int numPerPage) throws Exception {
+	public PageEntity<SellCards> listByPage(Map<String, Object> paramMap, int startPage, int numPerPage) throws Exception {
 		try {
 			if (paramMap == null || paramMap.isEmpty()){
-				logger.error("玩家分页参数为空::");
+				logger.error("SellCards分页参数为空::");
 				return null;
 			}
 			PageHelper.startPage(startPage, numPerPage);
-			List<User> list = listBy(paramMap);
-			long total = ((Page<User>) list).getTotal();
-			return new PageEntity<User>(total, list, startPage, numPerPage);
+			List<SellCards> list = listBy(paramMap);
+			long total = ((Page<SellCards>) list).getTotal();
+			return new PageEntity<SellCards>(total, list, startPage, numPerPage);
 		} catch (Exception e) {
 			logger.error("玩家分页出现异常::", e);
 		}
 		return null;
 	}
 	
-	public List<User> listBy(Map<String, Object> paramMap) {
+	public List<SellCards> listBy(Map<String, Object> paramMap) {
 		try {
 			if (paramMap == null || paramMap.isEmpty()) {
-				logger.error("查询多个玩家条件为空::");
+				logger.error("查询多个SellCards条件为空::");
 				return null;
 			}
 			return mapper.listBy(paramMap);
 		} catch (Exception e) {
 			// e.printStackTrace();
-			logger.error("条件查询多个玩家异常::" + paramMap.toString(), e);
+			logger.error("条件查询多个SellCards异常::" + paramMap.toString(), e);
 		}
 		return null;
 	}
 	
-	public User getBy(Map<String, Object> paramMap) {
+	public SellCards getBy(Map<String, Object> paramMap) {
 		try {
 			if (paramMap == null || paramMap.isEmpty()) {
-				logger.error("查询单个玩家条件为空::");
+				logger.error("查询单个SellCards条件为空::");
 				return null;
 			}
 			return mapper.getBy(paramMap);
 		} catch (Exception e) {
-			logger.error("条件查询单个玩家异常::" + paramMap.toString(), e);
+			logger.error("条件查询单个SellCards异常::" + paramMap.toString(), e);
 		}
 		return null;
 	}

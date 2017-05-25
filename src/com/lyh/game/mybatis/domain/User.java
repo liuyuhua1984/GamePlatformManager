@@ -1,7 +1,9 @@
-package com.lyh.game.mybaits.domain;
+package com.lyh.game.mybatis.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.lyh.game.mybatis.domain.BaseDomain;
 
 public class User extends BaseDomain implements Serializable {
     /**

@@ -1,14 +1,22 @@
 
 package com.lyh.game.control;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.lyh.game.mybatis.domain.User;
+import com.lyh.game.service.UserService;
+import com.lyh.game.utils.IText;
 
 /**
  * AdminLoginController <br/>
@@ -22,6 +30,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class AdminLoginController extends BaseController {
+	
+	@Autowired
+	private UserService userService;
 	
 	/**
 	 * index:(). <br/>
@@ -38,12 +49,12 @@ public class AdminLoginController extends BaseController {
 	// 验证码验证
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public String login(HttpServletRequest request, HttpServletResponse response) {
+	public Map<String,String> login(HttpServletRequest request) {
 		String validateCode = request.getParameter("captcha");
-		String userName = request.getParameter("username");
+		String passport = request.getParameter("username");
 		String passwd = request.getParameter("passwordhash");
 		
-		
+		Map<String,String> returnMap = new HashMap<String,String>();
 		String code = null;
 		// 1:获取cookie里面的验证码信息
 		Cookie[] cookies = request.getCookies();
@@ -58,13 +69,33 @@ public class AdminLoginController extends BaseController {
 		// 2:判断验证码是否正确
 		if (StringUtils.isEmpty(validateCode) || !validateCode.equals(code)) {
 			//验证码错误
-			return "error" ;
+			returnMap.put("errorCode","0");
+			returnMap.put("msg", IText.TEXT_1);
+			return returnMap ;
 		}
 		
-		if (userName.equals(anObject)){
-			
+		//
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("passport", passport);
+		User user = userService.getBy(map);
+		if (user == null){
+			returnMap.put("errorCode","2");
+			returnMap.put("msg", IText.TEXT_2);
+			return returnMap ;
 		}
-		return "error";
+		
+		if (!user.getPassword().equals(passwd)){
+			returnMap.put("errorCode","3");
+			returnMap.put("msg", IText.TEXT_3);
+			return returnMap ;
+		}
+		if (user.getStatus()<= 0){
+			returnMap.put("errorCode","4");
+			returnMap.put("msg", IText.TEXT_3);
+			return returnMap ;
+		}
+		returnMap.put("errorCode","1");
+		return returnMap;
 		// 这里我没有进行字母大小模糊的验证处理，感兴趣的你可以去试一下！
 	}
 	

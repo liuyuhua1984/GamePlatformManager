@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyh.game.mybaits.mapper.SellCardsMapper">
+  <resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.SellCards">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="buyOpenId" jdbcType="VARCHAR" property="buyOpenId" />
+    <result column="sellOpenId" jdbcType="VARCHAR" property="sellOpenId" />
+    <result column="roomCards" jdbcType="INTEGER" property="roomCards" />
+    <result column="remainCards" jdbcType="INTEGER" property="remainCards" />
+    <result column="sellType" jdbcType="INTEGER" property="sellType" />
+    <result column="orderId" jdbcType="VARCHAR" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, buyOpenId, sellOpenId, roomCards, remainCards, sellType, orderId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sell_cards
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sell_cards
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lyh.game.mybaits.domain.SellCards">
+    insert into sell_cards (id, createTime, buyOpenId, 
+      sellOpenId, roomCards, remainCards, 
+      sellType, orderId)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{buyOpenId,jdbcType=VARCHAR}, 
+      #{sellOpenId,jdbcType=VARCHAR}, #{roomCards,jdbcType=INTEGER}, #{remainCards,jdbcType=INTEGER}, 
+      #{sellType,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyh.game.mybaits.domain.SellCards">
+    insert into sell_cards
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="buyOpenId != null">
+        buyOpenId,
+      </if>
+      <if test="sellOpenId != null">
+        sellOpenId,
+      </if>
+      <if test="roomCards != null">
+        roomCards,
+      </if>
+      <if test="remainCards != null">
+        remainCards,
+      </if>
+      <if test="sellType != null">
+        sellType,
+      </if>
+      <if test="orderId != null">
+        orderId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyOpenId != null">
+        #{buyOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="sellOpenId != null">
+        #{sellOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="roomCards != null">
+        #{roomCards,jdbcType=INTEGER},
+      </if>
+      <if test="remainCards != null">
+        #{remainCards,jdbcType=INTEGER},
+      </if>
+      <if test="sellType != null">
+        #{sellType,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

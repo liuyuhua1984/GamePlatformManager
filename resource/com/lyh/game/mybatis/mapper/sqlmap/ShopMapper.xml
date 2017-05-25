@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyh.game.mybaits.mapper.ShopMapper">
+  <resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.Shop">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="shopName" jdbcType="VARCHAR" property="shopName" />
+    <result column="price" jdbcType="REAL" property="price" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="presentNum" jdbcType="INTEGER" property="presentNum" />
+    <result column="discount" jdbcType="INTEGER" property="discount" />
+    <result column="sellAgentType" jdbcType="INTEGER" property="sellAgentType" />
+    <result column="itemOn" jdbcType="TINYINT" property="itemOn" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, shopName, price, num, presentNum, discount, sellAgentType, itemOn, 
+    type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from shop
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lyh.game.mybaits.domain.Shop">
+    insert into shop (id, createTime, shopName, 
+      price, num, presentNum, 
+      discount, sellAgentType, itemOn, 
+      type)
+    values (#{id,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{shopName,jdbcType=VARCHAR}, 
+      #{price,jdbcType=REAL}, #{num,jdbcType=INTEGER}, #{presentNum,jdbcType=INTEGER}, 
+      #{discount,jdbcType=INTEGER}, #{sellAgentType,jdbcType=INTEGER}, #{itemOn,jdbcType=TINYINT}, 
+      #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyh.game.mybaits.domain.Shop">
+    insert into shop
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
+      <if test="shopName != null">
+        shopName,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="presentNum != null">
+        presentNum,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+      <if test="sellAgentType != null">
+        sellAgentType,
+      </if>
+      <if test="itemOn != null">
+        itemOn,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopName != null">
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="presentNum != null">
+        #{presentNum,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=INTEGER},
+      </if>
+      <if test="sellAgentType != null">
+        #{sellAgentType,jdbcType=INTEGER},
+      </if>
+      <if test="itemOn != null">
+        #{itemOn,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

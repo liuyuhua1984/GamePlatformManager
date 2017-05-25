@@ -20,15 +20,15 @@
 				<!-- <value>file:${user.dir}/jdbc.properties</value> <value>file:${user.dir}/jdbclog.properties</value> -->
 				<value>/config/redis.properties</value>
 				<!-- <value>/config/redis_cluster.properties</value> -->
-				<value>config/mongo.properties</value>
+				<value>/config/mongo.properties</value>
 				<value>/config/jdbc.properties</value>
 			</list>
 		</property>
 	</bean>
 
-	<import resource="classpath*:spring_redis_single.xml" />
+	<import resource="classpath*:config/spring_redis_single.xml" />
 	<!--  <import resource="classpath*:spring-session.xml"/>-->
-	<import resource="classpath*:spring_mybatis.xml" />
-	<import resource="classpath*:spring_mongo.xml" />
-	
+	<import resource ="classpath*:config/spring_mybatis.xml" />
+	<import resource="classpath*:config/spring_mongo.xml" />
+
 </beans>

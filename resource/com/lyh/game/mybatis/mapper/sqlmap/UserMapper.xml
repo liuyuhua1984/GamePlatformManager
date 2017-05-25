@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyh.game.mybaits.mapper.UserMapper">
+
+	<resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.User">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="userName" jdbcType="VARCHAR" property="userName" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="channelId" jdbcType="INTEGER" property="channelId" />
+		<result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="lastLoginTime" jdbcType="TIMESTAMP" property="lastLoginTime" />
+		<result column="status" jdbcType="TINYINT" property="status" />
+		<result column="passport" jdbcType="VARCHAR" property="passport" />
+		<result column="phone" jdbcType="BIGINT" property="phone" />
+		<result column="version" jdbcType="INTEGER" property="version" />
+	</resultMap>
+	<sql id="user"> user</sql>
+
+	<sql id="Base_Column_List">
+		id, userName, password, channelId, createTime,
+		lastLoginTime, status,
+		passport, phone,
+		version
+	</sql>
+	<!-- 插入sql -->
+	<insert id="insert" parameterType="User">
+		insert into
+		<include refid="user" />
+		(
+		<include refid="Base_Column_List" />
+		)
+		values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{channelId,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{lastLoginTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=TINYINT}, #{passport,jdbcType=VARCHAR},
+		#{phone,jdbcType=BIGINT},
+		#{version,jdbcType=INTEGER})
+	</insert>
+	<!-- 批量插入 -->
+	<insert id="insert" parameterType="java.util.List">
+		insert into <include refid="user"/>(<include refid="Base_Column_List"/>) values
+		<foreach collection="list" item="item" index="index" separator=",">
+		 (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{channelId,jdbcType=INTEGER},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{lastLoginTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=TINYINT}, #{passport,jdbcType=VARCHAR},
+		#{phone,jdbcType=BIGINT},
+		#{version,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="user" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<!-- 更新用户 -->
+	<update id="update" parameterType="User">
+		update
+		<include refid="user" />
+		<set> userName=#{userName},
+			password=#{password},
+			channelId=#{channelId},
+			createTime=#{createTime},
+			lastLoginTime=#{lastLoginTime},
+			status=#{status},
+			passport=#{passport},
+			phone=#{phone},
+			version=#{versioin}+1
+		</set>
+		<where>
+			id=#{id} and version=#{version}
+		</where>
+	</update>
+
+	<!-- id查找对角 -->
+	<select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="user" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="getBy" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="user" />
+		<where>
+			<if test="passport != null">
+				passport=#{passport}
+			</if>
+
+		</where>
+	</select>
+
+
+
+
+</mapper>

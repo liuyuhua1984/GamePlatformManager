@@ -83,7 +83,8 @@ body {
 		$("#captcha_img").click(function() {
 			changeCode();
 		});
-		$("#login_form").submit(function() {
+		
+		$("#login_ok").click(function() {
 			var issubmit = true;
 			var i_index = 0;
 			$(this).find('.form-control').each(function(i) {
@@ -109,9 +110,71 @@ body {
 					path : '/'
 				}); //删除cookie
 			}
+			$.ajax({
+				type : "POST",
+				url : 'login',
+				data : {
+					captcha : $("#j_captcha").val(),
+					username : $("#j_username").val(),
+					passwordhash:$("#j_password").val()
+				},
+				dataType : 'json',
+				cache : false,
+				success : function(data) {
+					if ("1" == data.errorCode) {
+					//	saveCookie();
+						window.location.href = "index";
+					} else if ("2" == data.errorCode) {
+						$("#j_username").tips({
+							side : 1,
+							msg : data.msg,
+							bg : '#FF5080',
+							time : 15
+						});
+						$("#j_username").focus();
+					} else if ("0" == data.errorCode) {
+						changeCode();
+						 $("#j_captcha").tips({
+							side : 1,
+							msg : data.msg,
+							bg : '#FF5080',
+							time : 15
+						});
+						$("#code").focus();
+					} else if ("4" == data.errorCode) {
+						changeCode();
+						$("#j_username").tips({
+							side : 1,
+							msg : data.msg,
+							bg : '#FF5080',
+							time : 15
+						});
+						$("#j_username").focus();
+					} else if ("3" == data.errorCode) {
 
-			$("#login_ok").attr("disabled", true).val('登陆中..');
+						$("#j_password").tips({
+							side : 1,
+							msg : data.msg,
+							bg : '#FF5080',
+							time : 15
+						});
+						$("#j_password").focus();
+					} else {
+						changeCode();
+						$("#j_username").tips({
+							side : 1,
+							msg : "缺少参数",
+							bg : '#FF5080',
+							time : 15
+						});
+						$("#j_username").focus();
+					}
+				}
+			});
+			
+		
 			/*
+				$("#login_ok").attr("disabled", true).val('登陆中..');
 			var key = CryptoJS.enc.Base64.parse($("#j_randomKey").val());
 			var iv = CryptoJS.enc.Latin1.parse('0102030405060708');
 			var password = CryptoJS.AES.encrypt($("#j_password").val(), key, {iv:iv, mode:CryptoJS.mode.CBC, padding:CryptoJS.pad.Pkcs7 });
@@ -189,7 +252,7 @@ body {
 					</div>
 				</div>
 				<div class="text-center">
-					<button type="submit" id="login_ok" class="btn btn-primary btn-lg">&nbsp;登&nbsp;录&nbsp;</button>
+					<button type="button" id="login_ok" class="btn btn-primary btn-lg">&nbsp;登&nbsp;录&nbsp;</button>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<button type="reset" class="btn btn-default btn-lg">&nbsp;重&nbsp;置&nbsp;</button>
 				</div>

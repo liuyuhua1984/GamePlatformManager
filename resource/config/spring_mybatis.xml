@@ -70,25 +70,30 @@
         value="classpath:me/gacl/mapping/*.xml"指的是classpath(类路径)下me.gacl.mapping包中的所有xml文件
         UserMapper.xml位于me.gacl.mapping包下，这样UserMapper.xml就可以被自动扫描
          -->
-        <property name="configLocation" value="/mybatis-config.xml"></property>
-        <property name="mapperLocations" value="classpath:com/lyh/game/mapper/sqlmap/*.xml" />
+        <property name="configLocation" value="/config/mybatis-config.xml"></property>
+        <property name="mapperLocations" value="classpath:com/lyh/game/mybatis/mapper/sqlmap/*.xml" />
+        <property name ="typeAliasesPackage" value="com.lyh.game.mybatis.domain" />
          <property name="plugins">
-    	<array>
-     	 <!-- 主要看这里 -->
-       <bean class="com.github.pagehelper.PageHelper">
-        <property name="properties">
-          <value>
-            dialect=mysql
-          </value>
-        </property>
-      </bean>
-    </array>
-  </property>
+        <array>
+            <bean class="com.github.pagehelper.PageInterceptor">
+                <!-- 这里的几个配置主要演示如何使用，如果不理解，一定要去掉下面的配置 -->
+                <property name="properties">
+                    <value>
+                        helperDialect=mysql
+                        reasonable=true
+                        supportMethodsArguments=true
+                        params=count=countSql
+                        autoRuntimeDialect=true
+                    </value>
+                </property>
+            </bean>
+        </array>
+    </property>
     </bean>
     <!-- 配置扫描器 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描me.gacl.dao这个包以及它的子包下的所有映射接口类 -->
-        <property name="basePackage" value="com.lyh.game.mapper" />
+        <property name="basePackage" value="com.lyh.game.mybatis.mapper" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
     	<!-- SqlSession模板类实例 -->
@@ -102,7 +107,7 @@
     </bean>
 
     <!-- 注解方式配置事物 -->
-   <tx:annotation-driven transaction-manager="transactionManager" /> 
+   <tx:annotation-driven transaction-manager="transactionManager"  /> 
 
 
 	 <!-- 配置druid监控spring jdbc -->
