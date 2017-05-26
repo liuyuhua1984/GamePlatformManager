@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lyh.game.mybaits.mapper.SellCardsMapper">
-  <resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.SellCards">
+<mapper namespace="com.lyh.game.mybatis.mapper.SellCardsMapper">
+  <resultMap id="BaseResultMap" type="SellCards">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="buyOpenId" jdbcType="VARCHAR" property="buyOpenId" />
@@ -24,7 +24,7 @@
     delete from sell_cards
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.lyh.game.mybaits.domain.SellCards">
+  <insert id="insert" parameterType="SellCards">
     insert into sell_cards (id, createTime, buyOpenId, 
       sellOpenId, roomCards, remainCards, 
       sellType, orderId)
@@ -32,7 +32,7 @@
       #{sellOpenId,jdbcType=VARCHAR}, #{roomCards,jdbcType=INTEGER}, #{remainCards,jdbcType=INTEGER}, 
       #{sellType,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.lyh.game.mybaits.domain.SellCards">
+  <insert id="insertSelective" parameterType="SellCards">
     insert into sell_cards
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

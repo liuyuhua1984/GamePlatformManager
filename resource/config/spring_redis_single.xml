@@ -39,7 +39,7 @@
 		<property name="usePool" value="${redis.usepool}" />
 	</bean>
 
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+	<bean id="redisStringTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
 		
 		<!-- <property name="keySerializer"> <bean class="org.springframework.data.redis.serializer.StringRedisSerializer" 
@@ -54,7 +54,7 @@
 	<!-- 缓存 -->
 	
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-		<property name="connectionFactory" ref="jedisConnectionFactory" />
+		<property name="connectionFactory" ref="connectionFactory" />
 	</bean>
 	
 	  <!-- 配置缓存 -->  

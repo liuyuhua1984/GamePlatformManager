@@ -70,7 +70,7 @@
         value="classpath:me/gacl/mapping/*.xml"指的是classpath(类路径)下me.gacl.mapping包中的所有xml文件
         UserMapper.xml位于me.gacl.mapping包下，这样UserMapper.xml就可以被自动扫描
          -->
-        <property name="configLocation" value="/config/mybatis-config.xml"></property>
+        <property name="configLocation" value="classpath:config/mybatis-config.xml"></property>
         <property name="mapperLocations" value="classpath:com/lyh/game/mybatis/mapper/sqlmap/*.xml" />
         <property name ="typeAliasesPackage" value="com.lyh.game.mybatis.domain" />
          <property name="plugins">
@@ -117,7 +117,7 @@
     <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
         <property name="patterns">
             <list>
-                <value>com.lyh.game.service.*</value>
+                <value>com.lyh.game.service</value>
             </list>
         </property>
     </bean>

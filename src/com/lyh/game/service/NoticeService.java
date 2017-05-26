@@ -62,7 +62,7 @@ public class NoticeService implements IBaseService<Notice>, IPageHelper<Notice> 
 		return result;
 	}
 	
-	public long insert(List<Notice> list) {
+	public long insertBatch(List<Notice> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("insertList<Notice>为空或者size为0");
@@ -70,7 +70,7 @@ public class NoticeService implements IBaseService<Notice>, IPageHelper<Notice> 
 		}
 		long result = 0;
 		try {
-			result = mapper.insert(list);
+			result = mapper.insertBatch(list);
 		} catch (Exception e) {
 			// e.printStackTrace();
 			logger.error("插入多个Notice异常::", e);
@@ -94,7 +94,7 @@ public class NoticeService implements IBaseService<Notice>, IPageHelper<Notice> 
 		return result;
 	}
 	
-	public long update(List<Notice> list) {
+	public long updateBatch(List<Notice> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("更新多个Notice为空::");

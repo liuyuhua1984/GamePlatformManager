@@ -27,7 +27,7 @@
 	</bean>
 
 	<import resource="classpath*:config/spring_redis_single.xml" />
-	<!--  <import resource="classpath*:spring-session.xml"/>-->
+	 <import resource="classpath*:config/spring-session.xml"/>
 	<import resource ="classpath*:config/spring_mybatis.xml" />
 	<import resource="classpath*:config/spring_mongo.xml" />
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lyh.game.mybaits.mapper.AgentMapper">
-  <resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.Agent">
+<mapper namespace="com.lyh.game.mybatis.mapper.AgentMapper">
+  <resultMap id="BaseResultMap" type="Agent">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="roomCards" jdbcType="INTEGER" property="roomCards" />
@@ -11,7 +11,7 @@
     <result column="openName" jdbcType="VARCHAR" property="openName" />
     <result column="phone" jdbcType="BIGINT" property="phone" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.lyh.game.mybaits.domain.Agent">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="Agent">
     <result column="subordinateAgentId" jdbcType="LONGVARCHAR" property="subordinateAgentId" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -32,7 +32,7 @@
     delete from agent
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.lyh.game.mybaits.domain.Agent">
+  <insert id="insert" parameterType="Agent">
     insert into agent (id, type, roomCards, 
       createTime, inviterName, inviteCode, 
       openName, phone, subordinateAgentId
@@ -42,7 +42,7 @@
       #{openName,jdbcType=VARCHAR}, #{phone,jdbcType=BIGINT}, #{subordinateAgentId,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.lyh.game.mybaits.domain.Agent">
+  <insert id="insertSelective" parameterType="Agent">
     insert into agent
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

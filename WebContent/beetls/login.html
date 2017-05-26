@@ -18,7 +18,8 @@ html, body {
 body {
 	font-family: "Verdana", "Tahoma", "Lucida Grande", "Microsoft YaHei",
 		"Hiragino Sans GB", sans-serif;
-	background: url(${ctxPath}/img/loginbg_01.jpg) no-repeat center center fixed;
+	background: url(${ctxPath}/img/loginbg_01.jpg) no-repeat center center
+		fixed;
 	background-size: cover;
 }
 
@@ -69,12 +70,14 @@ body {
 }
 </style>
 <script type="text/javascript">
-	var COOKIE_NAME = 'sys_em_username';
+	var COOKIE_NAME = 'sys_platform_username';
+	var COOKIE_PASSWORD = 'sys_platform_password';
 	$(function() {
 		choose_bg();
 		changeCode();
 		if ($.cookie(COOKIE_NAME)) {
 			$("#j_username").val($.cookie(COOKIE_NAME));
+			$("#j_password").val($.cookie(COOKIE_PASSWORD));
 			$("#j_password").focus();
 			$("#j_remember").attr('checked', true);
 		} else {
@@ -83,7 +86,7 @@ body {
 		$("#captcha_img").click(function() {
 			changeCode();
 		});
-		
+
 		$("#login_ok").click(function() {
 			var issubmit = true;
 			var i_index = 0;
@@ -105,26 +108,38 @@ body {
 					path : '/',
 					expires : 15
 				});
+				
+				$.cookie(COOKIE_PASSWORD, $("#j_password").val(), {
+					path : '/',
+					expires : 15
+				});
+				
 			} else {
 				$.cookie(COOKIE_NAME, null, {
+					path : '/'
+				}); //删除cookie
+				
+				$.cookie(COOKIE_PASSWORD, null, {
 					path : '/'
 				}); //删除cookie
 			}
 			$.ajax({
 				type : "POST",
-				url : 'login',
+				url : 'login.html',
 				data : {
 					captcha : $("#j_captcha").val(),
 					username : $("#j_username").val(),
-					passwordhash:$("#j_password").val()
+					passwordhash : $("#j_password").val()
 				},
 				dataType : 'json',
 				cache : false,
 				success : function(data) {
+
 					if ("1" == data.errorCode) {
-					//	saveCookie();
-						window.location.href = "index";
+						//	saveCookie();
+						window.location.href = "index.html";
 					} else if ("2" == data.errorCode) {
+						changeCode();
 						$("#j_username").tips({
 							side : 1,
 							msg : data.msg,
@@ -134,7 +149,7 @@ body {
 						$("#j_username").focus();
 					} else if ("0" == data.errorCode) {
 						changeCode();
-						 $("#j_captcha").tips({
+						$("#j_captcha").tips({
 							side : 1,
 							msg : data.msg,
 							bg : '#FF5080',
@@ -151,7 +166,8 @@ body {
 						});
 						$("#j_username").focus();
 					} else if ("3" == data.errorCode) {
-
+				
+						changeCode();
 						$("#j_password").tips({
 							side : 1,
 							msg : data.msg,
@@ -159,6 +175,7 @@ body {
 							time : 15
 						});
 						$("#j_password").focus();
+
 					} else {
 						changeCode();
 						$("#j_username").tips({
@@ -171,8 +188,7 @@ body {
 					}
 				}
 			});
-			
-		
+
 			/*
 				$("#login_ok").attr("disabled", true).val('登陆中..');
 			var key = CryptoJS.enc.Base64.parse($("#j_randomKey").val());
@@ -183,12 +199,12 @@ body {
 			 */
 
 			return true;
-		//	location.href = 'checkImgCode.html'
+			//	location.href = 'checkImgCode.html'
 
 		});
 	});
 	function changeCode() {
-		$("#captcha_img").attr("src", "code?t="+ (new Date().getTime()));
+		$("#captcha_img").attr("src", "code?t=" + (new Date().getTime()));
 	}
 	function choose_bg() {
 		var bg = Math.floor(Math.random() * 9 + 1);
@@ -196,6 +212,13 @@ body {
 				'url(${ctxPath}/img/loginbg_0' + bg + '.jpg)');
 	}
 </script>
+
+	<script>
+		//TOCMAT重启之后点击左侧列表跳转登录首页 
+		if (window != top) {
+			top.location.href = location.href;
+		}
+	</script>
 </head>
 <body>
 	<!--[if lte IE 7]>
@@ -263,5 +286,6 @@ body {
 			</form>
 		</div>
 	</div>
+	<script type="text/javascript" src="${ctxPath}/js/jquery.tips.js"></script>
 </body>
 </html>

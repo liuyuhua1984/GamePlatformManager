@@ -62,7 +62,7 @@ public class ShopService implements IBaseService<Shop>, IPageHelper<Shop> {
 		return result;
 	}
 	
-	public long insert(List<Shop> list) {
+	public long insertBatch(List<Shop> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("insertList<Shop>为空或者size为0");
@@ -70,7 +70,7 @@ public class ShopService implements IBaseService<Shop>, IPageHelper<Shop> {
 		}
 		long result = 0;
 		try {
-			result = mapper.insert(list);
+			result = mapper.insertBatch(list);
 		} catch (Exception e) {
 			// e.printStackTrace();
 			logger.error("插入多个Shop异常::", e);
@@ -94,7 +94,7 @@ public class ShopService implements IBaseService<Shop>, IPageHelper<Shop> {
 		return result;
 	}
 	
-	public long update(List<Shop> list) {
+	public long updateBatch(List<Shop> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("更新多个Shop为空::");

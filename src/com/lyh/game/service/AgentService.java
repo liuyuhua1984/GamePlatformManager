@@ -62,7 +62,7 @@ public class AgentService implements IBaseService<Agent>, IPageHelper<Agent> {
 		return result;
 	}
 	
-	public long insert(List<Agent> list) {
+	public long insertBatch(List<Agent> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("insertList<Agent>为空或者size为0");
@@ -70,7 +70,7 @@ public class AgentService implements IBaseService<Agent>, IPageHelper<Agent> {
 		}
 		long result = 0;
 		try {
-			result = mapper.insert(list);
+			result = mapper.insertBatch(list);
 		} catch (Exception e) {
 			// e.printStackTrace();
 			logger.error("插入多个Agent异常::", e);
@@ -94,7 +94,7 @@ public class AgentService implements IBaseService<Agent>, IPageHelper<Agent> {
 		return result;
 	}
 	
-	public long update(List<Agent> list) {
+	public long updateBatch(List<Agent> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("更新多个Agent为空::");

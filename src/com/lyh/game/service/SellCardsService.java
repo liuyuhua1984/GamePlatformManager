@@ -55,7 +55,7 @@ public class SellCardsService implements IBaseService<SellCards>, IPageHelper<Se
 		return result;
 	}
 	
-	public long insert(List<SellCards> list) {
+	public long insertBatch(List<SellCards> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("insertList<SellCards>为空或者size为0");
@@ -63,7 +63,7 @@ public class SellCardsService implements IBaseService<SellCards>, IPageHelper<Se
 		}
 		long result = 0;
 		try {
-			result = mapper.insert(list);
+			result = mapper.insertBatch(list);
 		} catch (Exception e) {
 			// e.printStackTrace();
 			logger.error("插入多个SellCards异常::", e);
@@ -87,7 +87,7 @@ public class SellCardsService implements IBaseService<SellCards>, IPageHelper<Se
 		return result;
 	}
 	
-	public long update(List<SellCards> list) {
+	public long updateBatch(List<SellCards> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("更新多个SellCards为空::");

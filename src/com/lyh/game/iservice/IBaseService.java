@@ -36,7 +36,7 @@ public interface IBaseService<T extends BaseDomain> {
 	 *            .
 	 * @return id .
 	 */
-	long insert(List<T> list) throws Exception;
+	long insertBatch(List<T> list) throws Exception;
 
 	/**
 	 * 更新实体对应的记录.
@@ -54,7 +54,7 @@ public interface IBaseService<T extends BaseDomain> {
 	 *            .
 	 * @return int .
 	 */
-	long update(List<T> list) throws Exception;
+	long updateBatch(List<T> list) throws Exception;
 
 	/**
 	 * 根据ID查找记录.

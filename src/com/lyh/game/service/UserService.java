@@ -60,7 +60,7 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 		return result;
 	}
 	
-	public long insert(List<User> list) {
+	public long insertBatch(List<User> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("insertList<User>为空或者size为0");
@@ -68,7 +68,7 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 		}
 		long result = 0;
 		try {
-			result = mapper.insert(list);
+			result = mapper.insertBatch(list);
 		} catch (Exception e) {
 			// e.printStackTrace();
 			logger.error("插入多个玩家异常::", e);
@@ -92,7 +92,7 @@ public class UserService implements IBaseService<User>, IPageHelper<User> {
 		return result;
 	}
 	
-	public long update(List<User> list) {
+	public long updateBatch(List<User> list) {
 		
 		if (list == null || list.size() <= 0) {
 			logger.error("更新多个玩家为空::");

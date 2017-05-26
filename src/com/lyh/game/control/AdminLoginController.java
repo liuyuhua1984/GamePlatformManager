@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -49,12 +50,12 @@ public class AdminLoginController extends BaseController {
 	// 验证码验证
 	@RequestMapping(value = "/login")
 	@ResponseBody
-	public Map<String,String> login(HttpServletRequest request) {
+	public Map<String,Object> login(HttpServletRequest request) {
 		String validateCode = request.getParameter("captcha");
 		String passport = request.getParameter("username");
 		String passwd = request.getParameter("passwordhash");
 		
-		Map<String,String> returnMap = new HashMap<String,String>();
+		Map<String, Object> returnMap = new ModelMap();
 		String code = null;
 		// 1:获取cookie里面的验证码信息
 		Cookie[] cookies = request.getCookies();

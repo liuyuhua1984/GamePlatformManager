@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lyh.game.mybaits.mapper.ShopMapper">
-  <resultMap id="BaseResultMap" type="com.lyh.game.mybaits.domain.Shop">
+<mapper namespace="com.lyh.game.mybatis.mapper.ShopMapper">
+  <resultMap id="BaseResultMap" type="Shop">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="shopName" jdbcType="VARCHAR" property="shopName" />
@@ -27,7 +27,7 @@
     delete from shop
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.lyh.game.mybaits.domain.Shop">
+  <insert id="insert" parameterType="Shop">
     insert into shop (id, createTime, shopName, 
       price, num, presentNum, 
       discount, sellAgentType, itemOn, 
@@ -37,7 +37,7 @@
       #{discount,jdbcType=INTEGER}, #{sellAgentType,jdbcType=INTEGER}, #{itemOn,jdbcType=TINYINT}, 
       #{type,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.lyh.game.mybaits.domain.Shop">
+  <insert id="insertSelective" parameterType="Shop">
     insert into shop
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
