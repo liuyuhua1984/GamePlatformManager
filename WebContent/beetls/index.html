@@ -3,9 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-<title>进来了</title>
+<title>元巫科技管理平台</title>
+<link  rel="stylesheet" type="text/css" href="${ctxPath}/css/easyui/easyui.css"/>
+<link  rel="stylesheet" type="text/css" href="${ctxPath}/css/easyui/icon.css" />
+<link rel="stylesheet" type="text/css" href="${ctxPath}/css/easyui/mobile.css"/>
+<script type="text/javascript"  src="${ctxPath}/js/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${ctxPath}/js/easyui/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${ctxPath}/js/easyui/jquery.easyui.mobile.js"></script>
+<script type="text/javascript" src="${ctxPath}/js/jquery.tips.js"></script>
+
+	<script type="text/javascript">
+	$(function() {
+		
+	});
+	
+	</script>
 </head>
 <body>
-	进入首页
+	<div id="lyh-layout" class="easyui-layout" fit="true" style="width: 100%;height: 100%;">
+		<div region="north"  title="查询"  split="false" style="height: 100px;"></div>
+		<div region="west"  iconCls="icon-ok" split="true" title="目录" style="width: 200px;">
+	  		<div id="lyh-catalog"  class="easyui-accordion"  fit="true">
+	  			<div title="首页" style="overflow: auto; padding: 10px;" selected="true"> </div>
+	  			<div title="用户管理"  style="padding: 10px;">
+	  				<a title="jsp/001_message.jsp" >玩家列表</a> <br />
+				    <a title="jsp/002_window.jsp" >玩家充值</a> <br />
+				    <a  title="">玩家统计</a><br />
+				    <div title="代理信息"></div>
+	  			</div>
+	  			<div title="财务管理" ></div>
+	  			<div title="平台管理"></div>
+	  			<div title="游戏管理"></div>
+	  		</div>
+		</div>
+	
+	<div region="center"  title="展示" style="overflow: hidden;">
+		<div id="lyh-center" class="easyui-tabs" fit="true" style="width: 500px;height: 300px;">
+		</div>
+	</div>
+	
+	</div>
 </body>
 </html>
