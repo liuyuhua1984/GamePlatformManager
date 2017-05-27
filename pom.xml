@@ -62,10 +62,10 @@
 		<lucene-core.version>6.5.1</lucene-core.version>
 		<!-- view -->
 		<freemarker.version>2.3.26-incubating</freemarker.version>
-		<beetl.version>2.7.14</beetl.version>
+		<beetl.version>2.7.15</beetl.version>
 		<ognl.version>3.2.1</ognl.version>
 		<!-- jdbc driver setting -->
-		<mysql.driver.version>5.1.41</mysql.driver.version>
+		<mysql.driver.version>5.1.42</mysql.driver.version>
 		<druid.version>1.0.27</druid.version>
 		<cglib-nodep.version>3.2.5</cglib-nodep.version>
 		<jstl.version>1.2</jstl.version>
@@ -331,6 +331,12 @@
 			<artifactId>commons-compress</artifactId>
 			<version>${commons-compress.version}</version>
 		</dependency>
+				<!-- fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
@@ -414,6 +420,7 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j-api.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>log4j-over-slf4j</artifactId>

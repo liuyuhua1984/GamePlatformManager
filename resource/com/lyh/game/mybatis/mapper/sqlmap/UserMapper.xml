@@ -71,7 +71,7 @@
 			status=#{status},
 			passport=#{passport},
 			phone=#{phone},
-			version=#{versioin}+1
+			version=#{version}+1
 		</set>
 		<where>
 			id=#{id} and version=#{version}

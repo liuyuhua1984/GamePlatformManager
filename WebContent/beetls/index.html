@@ -7,36 +7,13 @@
 <link rel="stylesheet" type="text/css" href="${ctxPath}/css/easyui/easyui.css" />
 <link rel="stylesheet" type="text/css" href="${ctxPath}/css/easyui/icon.css" />
 <link rel="stylesheet" type="text/css" href="${ctxPath}/css/easyui/mobile.css" />
+<link rel="stylesheet"  type="text/css" href="${ctxPath}/css/custom/index.css"/>
 <script type="text/javascript" src="${ctxPath}/js/easyui/jquery.min.js"></script>
 <script type="text/javascript" src="${ctxPath}/js/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${ctxPath}/js/easyui/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="${ctxPath}/js/easyui/jquery.easyui.mobile.js"></script>
 <script type="text/javascript" src="${ctxPath}/js/jquery.tips.js"></script>
 
-<style type="text/css">
-.logo {
-	width: 180px;
-	height: 50px;
-	line-height: 50px;
-	text-align: center;
-	font-weight: bold;
-	font-size: 20px;
-	float: left;
-	color: #fff;
-}
-
-
-.logout {
-	float: right;
-	padding: 30px 15px 0 0;
-	color: #fff;
-}
-
-body{
-	margin: 0px;
-	padding: 0px;
-}
-</style>
 
 <script type="text/javascript">
 	$(function() {
@@ -58,7 +35,7 @@ body{
 
 				<div class="logo">后台管理</div>
 				<div class="logout">
-					你好，无盐海 | <a href="#">退出</a>
+					你好，${session.pUser.passport} | <a href="admin.html">退出</a>
 				</div>
 			</div>
 		</div>

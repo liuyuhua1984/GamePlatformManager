@@ -102,21 +102,4 @@ public class User extends BaseDomain implements Serializable {
         this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", userName=").append(userName);
-        sb.append(", password=").append(password);
-        sb.append(", channelId=").append(channelId);
-        sb.append(", lastLoginTime=").append(lastLoginTime);
-        sb.append(", status=").append(status);
-        sb.append(", passport=").append(passport);
-        sb.append(", phone=").append(phone);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

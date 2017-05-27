@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	<!-- SPRING-SESSION -->
+	<bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+		<description>会话有效期(秒)</description>
+        <property name="maxInactiveIntervalInSeconds" value="21600" />
+        <property name="redisNamespace" value="craftsman" />
+	</bean>
+	<bean class="org.springframework.session.config.annotation.web.http.SpringHttpSessionConfiguration">
+		<property name="httpSessionListeners">
+			<list>
+				<bean class="com.duc.xushijiear.core.listener.SessionListener" />
+			</list>
+		</property>
+	</bean>
+	
+  <!-- 让Spring Session不再执行config命令 -->
+  <util:constant static-field="org.springframework.session.data.redis.config.ConfigureRedisAction.NO_OP"/>
+</beans>

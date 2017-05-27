@@ -1,6 +1,7 @@
 
 package com.lyh.game.control;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +48,15 @@ public class AdminLoginController extends BaseController {
 		return "login";
 	}
 	
-	// 验证码验证
+	
+	/** 
+	 * login:(). <br/> 
+	 * TODO().<br/> 
+	 * 还没有做平凡登录
+	 * @author lyh 
+	 * @param request
+	 * @return 
+	 */  
 	@RequestMapping(value = "/login")
 	@ResponseBody
 	public Map<String,Object> login(HttpServletRequest request) {
@@ -96,6 +105,9 @@ public class AdminLoginController extends BaseController {
 			return returnMap ;
 		}
 		returnMap.put("errorCode","1");
+		user.setLastLoginTime(new Date(System.currentTimeMillis()));
+		userService.update(user);
+		request.getSession().setAttribute("pUser", user);//保存到session
 		return returnMap;
 		// 这里我没有进行字母大小模糊的验证处理，感兴趣的你可以去试一下！
 	}
